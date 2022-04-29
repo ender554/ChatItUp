@@ -34,6 +34,7 @@ function App() {
       }
     })
     return destroySession;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   const signOut = async () => {
