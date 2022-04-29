@@ -49,7 +49,7 @@ const ChatView = ({ user = null, database = null}) => {
     return (
       message.uid !== uid ?
       <><OtherChat key={message.id}>{message.text}</OtherChat><TimeStamp left>{message.createdAt.toDate().toString()}</TimeStamp></> :
-      <><UserChat key={message.id}>{message.text}</UserChat><TimeStamp>{message.createdAt.toDate().toString()}</TimeStamp></>
+      <UserChat key={message.id}>{message.text}</UserChat>
     )
   }
   return (

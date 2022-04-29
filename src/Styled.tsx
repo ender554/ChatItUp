@@ -57,6 +57,10 @@ max-height: 50%;
 `
 
 const ChatWindow = styled.div`
+  max-height: 80vh;
+  min-height: 80vh;
+  max-width: 100vw;
+  min-width: 100vw;
   max-height: 50vh;
   min-height: 50vh;
   max-width: 25vw;
