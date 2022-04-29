@@ -1,12 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import firebase from "firebase/compat/app";
-import { ChatWindow, OtherChat, UserChat } from '../Styled';
+import { ChatWindow, OtherChat, UserChat, ChatInput } from '../Styled';
 
 const ChatView = ({ user = null, database = null}) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState();
+  const messagesEndRef = useRef(null);
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }
   const { uid, photoURL, displayName} = user;
-  console.log(user);
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages])
   useEffect(() => {
     if (database) {
       const unSub = database
@@ -38,31 +44,25 @@ const ChatView = ({ user = null, database = null}) => {
     }
     setNewMessage("");
   }
+
+  const chatBubble = (message) => {
+    return message.uid !== uid ? <OtherChat key={message.id}>{message.text}</OtherChat> : <UserChat key={message.id}>{message.text}</UserChat>
+  }
   return (
     <>
       <ChatWindow>
-       <ul>
-          {messages.map(message => {
-            if(message.uid !== uid) {
-              return (
-                <OtherChat key={message.id}>{message.text}</OtherChat>
-              )
-            }
-            return (
-              <>
-                <UserChat key={message.id}>{message.text}</UserChat>
-              </>
-          )})}
-        </ul>
+       <div>
+          {messages.map(message => chatBubble(message))}
+        </div>
+        <div ref={messagesEndRef} />
       </ChatWindow>
       <form onSubmit={handleSubmit}>
-        <input 
+        <ChatInput 
           type="text"
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
           placeholder="Message..."
         />
-        {/* <button type="submit" disabled={!newMessage} >Send</button> */}
       </form>
     </>
   )

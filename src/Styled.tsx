@@ -58,18 +58,20 @@ max-height: 50%;
 
 const ChatWindow = styled.div`
   max-height: 50vh;
-  max-width: 33vw;
+  min-height: 50vh;
+  max-width: 25vw;
+  min-width: 25vw;
   margin: 2rem auto;
   overflow-y: scroll;
   background-color: white;
   color: black;
-  & > ul {
+  & > div {
     display: flex;
     flex-direction: column;
   }
 `
 
-const OtherChat = styled.li`
+const OtherChat = styled.div`
   position: relative;
   align-self: start;
   max-width: 50%;
@@ -82,7 +84,7 @@ const OtherChat = styled.li`
   -moz-border-radius: 10px;
   border-radius: 10px;
 `
-const UserChat = styled.li`
+const UserChat = styled.div`
   position: relative;
   align-self: end;
   max-width: 50%;
@@ -96,4 +98,10 @@ const UserChat = styled.li`
   border-radius: 10px;
 `
 
-export { Welcome, JoinInput, GoButton, GoogleSignInButton, SignInButton, Button, Root, ChatRoot, ChatWindow, OtherChat, UserChat } 
+const ChatInput = styled.input`
+  max-width: 25vw;
+  min-width: 25vw;
+  height: 2rem;
+`
+
+export { Welcome, JoinInput, GoButton, GoogleSignInButton, SignInButton, Button, Root, ChatRoot, ChatWindow, OtherChat, UserChat, ChatInput } 
