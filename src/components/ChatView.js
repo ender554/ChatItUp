@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import firebase from "firebase/compat/app";
-import { ChatWindow, OtherChat, UserChat, ChatInput, TimeStamp } from '../Styled';
+import { ChatWindow, OtherChat, UserChat, ChatInput, TimeStamp, ChatBubble, Name } from '../Styled';
+import { FaThumbsUp } from "react-icons/fa";
+
 
 const ChatView = ({ user = null, database = null}) => {
   const [messages, setMessages] = useState([]);
@@ -31,6 +33,17 @@ const ChatView = ({ user = null, database = null}) => {
     }
   }, [database])
 
+  const liked = (message) => {
+    if (database) {
+      database
+        .collection('messageApp')
+        .doc(message.id).update({
+          liked: !message.liked,
+        });
+    }
+    console.log(message.id);
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (database) {
@@ -45,11 +58,24 @@ const ChatView = ({ user = null, database = null}) => {
     setNewMessage("");
   }
 
+  const grabColor = (letter) => {
+    let hash = 0;
+    for (let i = 0; i < letter.length; i++) {
+    hash = letter.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  let colour = '#';
+  for (let i = 0; i < 3; i++) {
+    let value = (hash >> (i * 8)) & 0xFF;
+    colour += ('00' + value.toString(16)).substr(-2);
+  }
+  return colour;
+  }
+
   const chatBubble = (message) => {
     return (
       message.uid !== uid ?
-      <><OtherChat key={message.id}>{message.text}</OtherChat><TimeStamp left>{message.createdAt.toDate().toString()}</TimeStamp></> :
-      <UserChat key={message.id}>{message.text}</UserChat>
+      <><ChatBubble src={message.photoURL} alt={message.displayName}/><Name>{message.displayName}</Name><OtherChat  onDoubleClick={() => liked(message)}  color={grabColor(message.displayName)} key={message.id}>{message.text}</OtherChat>{message.liked && <FaThumbsUp color="red" className={"thumbsUp"}/>}<TimeStamp left>{message.createdAt.toDate().toString()}</TimeStamp></> :
+      <><ChatBubble right src={message.photoURL} alt={message.displayName}/><UserChat key={message.id}>{message.text}</UserChat><TimeStamp>{!!message.createdAt ? message.createdAt.toDate().toString() : "Just now"}</TimeStamp></>
     )
   }
   return (

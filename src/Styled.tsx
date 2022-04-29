@@ -73,13 +73,19 @@ const ChatWindow = styled.div`
   flex-direction: column;
 `
 
-const OtherChat = styled.div`
+interface ChatBubblePropsT {
+  right: boolean;
+  color: string;
+}
+
+const OtherChat = styled.div<ChatBubblePropsT>`
   position: relative;
   align-self: start;
   max-width: 50%;
   padding: 15px;
   margin: 1em 0 0.5em;
-  border: 5px solid red;
+  border: 5px solid;
+  border-color: ${props => props.color}};
   color: #333;
   background: #fff;
   -webkit-border-radius: 10px;
@@ -113,4 +119,23 @@ const TimeStamp = styled.span<TimeStampProps>`
   ${props => props.left && css`align-self: start`};
   font-size: 0.5rem;
 `
-export { Welcome, JoinInput, GoButton, GoogleSignInButton, SignInButton, Button, Root, ChatRoot, ChatWindow, OtherChat, UserChat, ChatInput, TimeStamp } 
+const Name = styled.span`
+  align-self: start;
+  font-size: 0.5rem;
+  position: relative;
+  left: 35px;
+  top: 14px;
+`
+const ChatBubble = styled.img<ChatBubblePropsT>`
+  width: 2rem;
+  border-radius: 50%;
+  position: relative;
+  top: 35px;
+    z-index: 2;
+  ${props => props.right && css`
+    left: 90%;
+    top: 24px;
+  `}
+
+`
+export { Welcome, ChatBubble, Name, JoinInput, GoButton, GoogleSignInButton, SignInButton, Button, Root, ChatRoot, ChatWindow, OtherChat, UserChat, ChatInput, TimeStamp } 

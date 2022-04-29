@@ -51,3 +51,12 @@ body {
   background-color: black;
   color: white;
 }
+
+.thumbsUp {
+	color: red;
+	min-height: 15px;
+	/* min-width: 46px; */
+	position: relative;
+	top: -1rem;
+	right: -5rem;
+}
