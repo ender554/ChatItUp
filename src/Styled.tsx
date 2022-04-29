@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import GoogleLogo from "./public/google.svg";
 
 const Welcome = styled.h1`
@@ -65,10 +65,8 @@ const ChatWindow = styled.div`
   overflow-y: scroll;
   background-color: white;
   color: black;
-  & > div {
-    display: flex;
-    flex-direction: column;
-  }
+  display: flex;
+  flex-direction: column;
 `
 
 const OtherChat = styled.div`
@@ -76,7 +74,7 @@ const OtherChat = styled.div`
   align-self: start;
   max-width: 50%;
   padding: 15px;
-  margin: 1em 0 3em;
+  margin: 1em 0 0.5em;
   border: 5px solid red;
   color: #333;
   background: #fff;
@@ -89,7 +87,7 @@ const UserChat = styled.div`
   align-self: end;
   max-width: 50%;
   padding: 15px;
-  margin: 1em 0 3em;
+  margin: 1em 0 0.5em;
   border: 5px solid #5a8f00;
   color: #333;
   background: #fff;
@@ -103,5 +101,12 @@ const ChatInput = styled.input`
   min-width: 25vw;
   height: 2rem;
 `
-
-export { Welcome, JoinInput, GoButton, GoogleSignInButton, SignInButton, Button, Root, ChatRoot, ChatWindow, OtherChat, UserChat, ChatInput } 
+interface TimeStampProps {
+  left: boolean;
+}
+const TimeStamp = styled.span<TimeStampProps>`
+  align-self: end;
+  ${props => props.left && css`align-self: start`};
+  font-size: 0.5rem;
+`
+export { Welcome, JoinInput, GoButton, GoogleSignInButton, SignInButton, Button, Root, ChatRoot, ChatWindow, OtherChat, UserChat, ChatInput, TimeStamp } 

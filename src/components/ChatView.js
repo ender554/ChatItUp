@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import firebase from "firebase/compat/app";
-import { ChatWindow, OtherChat, UserChat, ChatInput } from '../Styled';
+import { ChatWindow, OtherChat, UserChat, ChatInput, TimeStamp } from '../Styled';
 
 const ChatView = ({ user = null, database = null}) => {
   const [messages, setMessages] = useState([]);
@@ -46,15 +46,17 @@ const ChatView = ({ user = null, database = null}) => {
   }
 
   const chatBubble = (message) => {
-    return message.uid !== uid ? <OtherChat key={message.id}>{message.text}</OtherChat> : <UserChat key={message.id}>{message.text}</UserChat>
+    return (
+      message.uid !== uid ?
+      <><OtherChat key={message.id}>{message.text}</OtherChat><TimeStamp left>{message.createdAt.toDate().toString()}</TimeStamp></> :
+      <><UserChat key={message.id}>{message.text}</UserChat><TimeStamp>{message.createdAt.toDate().toString()}</TimeStamp></>
+    )
   }
   return (
     <>
       <ChatWindow>
-       <div>
-          {messages.map(message => chatBubble(message))}
-        </div>
-        <div ref={messagesEndRef} />
+        {messages.map(message => chatBubble(message))}
+         <div ref={messagesEndRef} />
       </ChatWindow>
       <form onSubmit={handleSubmit}>
         <ChatInput 
