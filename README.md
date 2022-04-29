@@ -48,6 +48,10 @@ project and set firestore back end up
 
 Make sure permissions in firestore allow for users to read and write
 
+## Step 8 Deploy
+
+deployed basic proof of concept to netlify
+
 ## Future
 
-WOuld like to add image bubble, perhaps time stamp and improve style
+Would like to add image bubble, perhaps time stamp and improve style
