@@ -40,3 +40,14 @@ switch to firebase and create app with domain and apikey
 ## Step 6 Set up firebase project
 
 Allow google sign in for user and set up fore store and api keys for back end hosting
+
+## Step 7 Set up user auth
+
+Create a project in firebase get data from
+project and set firestore back end up
+
+Make sure permissions in firestore allow for users to read and write
+
+## Future
+
+WOuld like to add image bubble, perhaps time stamp and improve style

@@ -4,7 +4,7 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import ChatView from './components/ChatView';
 
-import { GoogleSignInButton, BaseButton } from './Styled';
+import { GoogleSignInButton, Button, Welcome, Root, ChatRoot } from './Styled';
 
 firebase.initializeApp({
   apiKey: "AIzaSyC88YuY7hqhiFcTja7Ocl8ocoak8Yl-T2s",
@@ -56,18 +56,21 @@ function App() {
 
   if (loading) return <main>"...Loading"</main>;
   return (
-    <main>
+    <>
       {!!user ? (
-        <>
+        <ChatRoot>
+          <Button onClick={signOut}>Sign Out</Button> 
           <ChatView user={user} database={database} />
-          <BaseButton secondary onClick={signOut}>Sign Out</BaseButton>  
-        </>
+        </ChatRoot>
 
       ) : (
-        <GoogleSignInButton onClick={googleSignIn}>Sign in with Google!</GoogleSignInButton>
+        <Root>
+          <Welcome>Welcome to Ezoic Chat!</Welcome>
+          <GoogleSignInButton onClick={googleSignIn}>Sign in with Google!</GoogleSignInButton>
+        </Root>
       )
       }
-    </main>
+    </>
   )
 }
 
